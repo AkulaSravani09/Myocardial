@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 from flask import Flask, request, jsonify, render_template
 import joblib
 import numpy as np
-import pandas as pd
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # Load trained model
-model = joblib.load("model.pkl")
+model_path = "model.pkl"
+if os.path.exists(model_path):
+    model = joblib.load(model_path)
+else:
+    model = None  # Handle missing model error
 
 @app.route('/')
 def home():
@@ -21,6 +22,9 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        if not model:
+            return jsonify({"error": "Model file not found!"})
+
         # Extract input features from form
         features = [
             float(request.form["AGE"]),
@@ -37,9 +41,9 @@ def predict():
         prediction = model.predict(input_data)[0]
         
         return render_template("result.html", prediction=prediction)
+    
     except Exception as e:
         return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", port=10000, debug=True)
