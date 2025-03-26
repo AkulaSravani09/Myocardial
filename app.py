@@ -18,7 +18,26 @@ else:
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    # Define the top 15 features and their valid ranges
+    features_info = [
+        ("AGE", "18 - 100"),
+        ("SEX", "0 = Female, 1 = Male"),
+        ("SIM_GIPERT", "0 = No, 1 = Yes"),
+        ("STENOK_AN", "0 = No, 1 = Yes"),
+        ("FK_STENOK", "0 = No, 1 = Yes"),
+        ("IBS_POST", "0 = No, 1 = Yes"),
+        ("IBS_NASL", "0 = No, 1 = Yes"),
+        ("K_BLOOD", "3.5 - 5.5 (mmol/L)"),
+        ("L_BLOOD", "3.0 - 10.0 (10^9/L)"),
+        ("ROE", "1 - 30 (mm/hr)"),
+        ("S_AD_KBRIG", "90 - 180 (mmHg)"),
+        ("D_AD_KBRIG", "60 - 120 (mmHg)"),
+        ("GIPO_K", "0 = No, 1 = Yes"),
+        ("GIPER_NA", "0 = No, 1 = Yes"),
+        ("CHOL", "3.0 - 8.0 (mmol/L)")
+    ]
+
+    return render_template("home.html", features_info=features_info)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -44,7 +63,8 @@ def predict():
             float(request.form.get("S_AD_KBRIG", 0)),  
             float(request.form.get("D_AD_KBRIG", 0)),  
             float(request.form.get("GIPO_K", 0)),  
-            float(request.form.get("GIPER_NA", 0))
+            float(request.form.get("GIPER_NA", 0)),  
+            float(request.form.get("CHOL", 0))
         ]
 
         # Convert to NumPy array and preprocess
