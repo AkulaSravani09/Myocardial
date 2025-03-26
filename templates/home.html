@@ -7,11 +7,21 @@
 <body>
     <h2>Enter Patient Details</h2>
     <form action="/predict" method="post">
-        Age: <input type="text" name="AGE"><br><br>
-        Sex (0 = Female, 1 = Male): <input type="text" name="SEX"><br><br>
-        Hypertension (0 = No, 1 = Yes): <input type="text" name="SIM_GIPERT"><br><br>
-        Diabetes (0 = No, 1 = Yes): <input type="text" name="S_DIA_B"><br><br>
-        Cholesterol Level: <input type="text" name="CHOL"><br><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="AGE" min="1" max="120" required><br><br>
+
+        <label for="sex">Sex (0 = Female, 1 = Male):</label>
+        <input type="number" id="sex" name="SEX" min="0" max="1" required><br><br>
+
+        <label for="hypertension">Hypertension (0 = No, 1 = Yes):</label>
+        <input type="number" id="hypertension" name="SIM_GIPERT" min="0" max="1" required><br><br>
+
+        <label for="diabetes">Diabetes (0 = No, 1 = Yes):</label>
+        <input type="number" id="diabetes" name="S_DIA_B" min="0" max="1" required><br><br>
+
+        <label for="cholesterol">Cholesterol Level:</label>
+        <input type="number" id="cholesterol" name="CHOL" step="0.1" min="0" required><br><br>
+
         <input type="submit" value="Predict">
     </form>
 </body>
