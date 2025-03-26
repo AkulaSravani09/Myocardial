@@ -3,11 +3,38 @@
 <html>
 <head>
     <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h2>Prediction Result:</h2>
+    <h2>Prediction Result</h2>
     <p>The model predicts: <strong>{{ prediction }}</strong></p>
-    <br>
-    <a href="/">Try Another Prediction</a>
+    <a href="/" class="btn">Try Another Prediction</a>
 </body>
 </html>
