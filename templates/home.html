@@ -21,6 +21,7 @@
             margin: 5px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            width: 80%;
         }
         input[type="submit"] {
             background-color: #4CAF50;
@@ -33,17 +34,40 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        table {
+            margin: auto;
+            text-align: left;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <h2>Enter Patient Details</h2>
     <form action="/predict" method="post">
-        Age: <input type="text" name="AGE" required><br><br>
-        Sex (0 = Female, 1 = Male): <input type="text" name="SEX" required><br><br>
-        Hypertension (0 = No, 1 = Yes): <input type="text" name="SIM_GIPERT" required><br><br>
-        Stenocardia: <input type="text" name="STENOK_AN" required><br><br>
-        Previous Stroke: <input type="text" name="FK_STENOK" required><br><br>
-        Blood Potassium Level: <input type="text" name="K_BLOOD" required><br><br>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Value</th>
+                <th>Range</th>
+            </tr>
+            {% for feature, range in features_info %}
+            <tr>
+                <td>{{ feature }}</td>
+                <td><input type="text" name="{{ feature }}" required></td>
+                <td>{{ range }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
         <input type="submit" value="Predict">
     </form>
 </body>
