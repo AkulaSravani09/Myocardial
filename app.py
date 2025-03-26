@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 from flask import Flask, request, jsonify, render_template
 import joblib
 import numpy as np
@@ -9,16 +6,17 @@ import os
 app = Flask(__name__, template_folder='templates')
 
 # Load trained model
-model_path = "model.pkl"
-if os.path.exists(model_path):
-    try:
-        model = joblib.load(model_path)
-    except Exception as e:
+MODEL_PATH = "model.pkl"
+
+try:
+    if os.path.exists(MODEL_PATH):
+        model = joblib.load(MODEL_PATH)
+    else:
         model = None
-        print(f"Error loading model: {e}")
-else:
+        print("Warning: Model file not found! Please ensure 'model.pkl' is available.")
+except Exception as e:
     model = None
-    print("Warning: Model file not found!")
+    print(f"Error loading model: {e}")
 
 @app.route('/')
 def home():
@@ -26,14 +24,15 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    try:
-        if model is None:
-            return jsonify({"error": "Model file not found! Please upload 'model.pkl'."})
+    if model is None:
+        return jsonify({"error": "Model is not loaded. Please upload 'model.pkl'."})
 
-        # Extract and validate input features
+    try:
+        # Define required input features
         required_fields = ["AGE", "SEX", "SIM_GIPERT", "S_DIA_B", "CHOL"]
         features = []
-
+        
+        # Extract and validate input data
         for field in required_fields:
             value = request.form.get(field)
             if value is None or value.strip() == "":
@@ -42,18 +41,20 @@ def predict():
                 features.append(float(value))
             except ValueError:
                 return jsonify({"error": f"Invalid value for {field}. Must be a number."})
-
-        # Convert to NumPy array
+        
+        # Convert input to NumPy array and reshape for prediction
         input_data = np.array(features).reshape(1, -1)
-
-        # Make prediction
+        
+        # Perform prediction
         prediction = model.predict(input_data)[0]
-
-        return render_template("result.html", prediction=prediction)
-
+        
+        # Interpret prediction result
+        result = "Diabetic" if prediction == 1 else "Non-Diabetic"
+        
+        return render_template("result.html", prediction=result)
     except Exception as e:
         return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
-    port = int(os.getenv("PORT", 10000))  # Use PORT from environment variable if available
+    port = int(os.getenv("PORT", 5000))  # Default port 5000 if not specified
     app.run(host="0.0.0.0", port=port, debug=True)
