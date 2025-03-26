@@ -3,26 +3,78 @@
 <html>
 <head>
     <title>Myocardial Infarction Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 50px auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #ff4081;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-    <h2>Enter Patient Details</h2>
-    <form action="/predict" method="post">
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="AGE" min="1" max="120" required><br><br>
+    <div class="container">
+        <h2>🩺 Myocardial Infarction Prediction</h2>
+        <form action="/predict" method="post">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="AGE" min="1" max="120" required>
 
-        <label for="sex">Sex (0 = Female, 1 = Male):</label>
-        <input type="number" id="sex" name="SEX" min="0" max="1" required><br><br>
+            <label for="sex">Sex (0 = Female, 1 = Male):</label>
+            <input type="number" id="sex" name="SEX" min="0" max="1" required>
 
-        <label for="hypertension">Hypertension (0 = No, 1 = Yes):</label>
-        <input type="number" id="hypertension" name="SIM_GIPERT" min="0" max="1" required><br><br>
+            <label for="hypertension">Hypertension (0 = No, 1 = Yes):</label>
+            <input type="number" id="hypertension" name="SIM_GIPERT" min="0" max="1" required>
 
-        <label for="diabetes">Diabetes (0 = No, 1 = Yes):</label>
-        <input type="number" id="diabetes" name="S_DIA_B" min="0" max="1" required><br><br>
+            <label for="diabetes">Diabetes (0 = No, 1 = Yes):</label>
+            <input type="number" id="diabetes" name="S_DIA_B" min="0" max="1" required>
 
-        <label for="cholesterol">Cholesterol Level:</label>
-        <input type="number" id="cholesterol" name="CHOL" step="0.1" min="0" required><br><br>
+            <label for="cholesterol">Cholesterol Level:</label>
+            <input type="number" id="cholesterol" name="CHOL" step="0.1" min="0" required>
 
-        <input type="submit" value="Predict">
-    </form>
+            <button type="submit">🔍 Predict</button>
+        </form>
+    </div>
 </body>
 </html>
