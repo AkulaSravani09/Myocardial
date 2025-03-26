@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Myocardial Infarction Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 50px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0px 0px 10px 0px #888;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Patient Details</h2>
+    <form action="/predict" method="post">
+        Age: <input type="text" name="AGE" required><br><br>
+        Sex (0 = Female, 1 = Male): <input type="text" name="SEX" required><br><br>
+        Hypertension (0 = No, 1 = Yes): <input type="text" name="SIM_GIPERT" required><br><br>
+        Stenocardia: <input type="text" name="STENOK_AN" required><br><br>
+        Previous Stroke: <input type="text" name="FK_STENOK" required><br><br>
+        Blood Potassium Level: <input type="text" name="K_BLOOD" required><br><br>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
