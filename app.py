@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-# Load trained model and imputer (for handling missing values)
+# Load trained model and imputer
 model_path = "myocardial_model.pkl"
 imputer_path = "imputer.pkl"
 
@@ -18,7 +18,7 @@ else:
 
 @app.route('/')
 def home():
-    # Define the top 15 features and their valid ranges
+    # Define the top 14 features and their valid ranges
     features_info = [
         ("AGE", "18 - 100"),
         ("SEX", "0 = Female, 1 = Male"),
@@ -33,8 +33,7 @@ def home():
         ("S_AD_KBRIG", "90 - 180 (mmHg)"),
         ("D_AD_KBRIG", "60 - 120 (mmHg)"),
         ("GIPO_K", "0 = No, 1 = Yes"),
-        ("GIPER_NA", "0 = No, 1 = Yes"),
-        ("CHOL", "3.0 - 8.0 (mmol/L)")
+        ("CHOL", "3.0 - 8.0 (mmol/L)")  # Removed 15th feature
     ]
 
     return render_template("home.html", features_info=features_info)
@@ -45,10 +44,7 @@ def predict():
         if not model or not imputer:
             return jsonify({"error": "Model or imputer file not found!"})
 
-        # Debugging: Print received form data
-        print("Received Form Data:", request.form)
-
-        # Extract input features from form
+        # Extract 14 features from form
         features = [
             float(request.form.get("AGE", 0)),  
             float(request.form.get("SEX", 0)),  
@@ -63,8 +59,7 @@ def predict():
             float(request.form.get("S_AD_KBRIG", 0)),  
             float(request.form.get("D_AD_KBRIG", 0)),  
             float(request.form.get("GIPO_K", 0)),  
-            float(request.form.get("GIPER_NA", 0)),  
-            float(request.form.get("CHOL", 0))
+            float(request.form.get("CHOL", 0))  # Only 14 features now
         ]
 
         # Convert to NumPy array and preprocess
