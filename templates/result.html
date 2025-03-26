@@ -1,40 +1,50 @@
-<!-- result.html -->
+<!-- home.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Prediction Result</title>
+    <title>Myocardial Infarction Prediction</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             text-align: center;
-            margin-top: 50px;
+            padding: 50px;
         }
-        h2 {
-            color: #333;
-        }
-        p {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007BFF;
-        }
-        .btn {
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
             display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            text-decoration: none;
-            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #888;
         }
-        .btn:hover {
-            background-color: #0056b3;
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h2>Prediction Result</h2>
-    <p>The model predicts: <strong>{{ prediction }}</strong></p>
-    <a href="/" class="btn">Try Another Prediction</a>
+    <h2>Enter Patient Details</h2>
+    <form action="/predict" method="post">
+        Age: <input type="text" name="AGE" required><br><br>
+        Sex (0 = Female, 1 = Male): <input type="text" name="SEX" required><br><br>
+        Hypertension (0 = No, 1 = Yes): <input type="text" name="SIM_GIPERT" required><br><br>
+        Diabetes (0 = No, 1 = Yes): <input type="text" name="GB" required><br><br>
+        Cholesterol Level: <input type="text" name="K_BLOOD" required><br><br>
+        <input type="submit" value="Predict">
+    </form>
 </body>
 </html>
